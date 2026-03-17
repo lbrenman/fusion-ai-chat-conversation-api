@@ -1,0 +1,85 @@
+openapi: 3.0.3
+info:
+  title: Prompt API
+  description: |
+    Client POSTs a JSON body with a `prompt` field and an optional `conversationId`.
+    If a `conversationId` is provided, the server will use the stored conversation
+    history as context for the request. If omitted, a new conversation will be
+    created and the generated `conversationId` will be returned in the response.
+    Server responds with a JSON object containing the assistant reply and the conversationId.
+  version: 1.0.0
+paths:
+  /v1/prompt:
+    post:
+      summary: Submit a prompt and receive a response
+      operationId: prompt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - prompt
+              type: object
+              properties:
+                prompt:
+                  minLength: 1
+                  type: string
+                  description: The prompt to send to the LLM.
+                conversationId:
+                  type: string
+                  description: |
+                    Optional. The unique identifier of an existing conversation.
+                    If provided, the full conversation history will be used as context.
+                    If omitted, a new conversation will be created.
+              additionalProperties: false
+            example:
+              prompt: What is my name?
+              conversationId: "abc-123"
+        required: true
+      responses:
+        "200":
+          description: Successful response from the LLM
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PromptResponse"
+              example:
+                message: "Your name is Leor."
+                conversationId: "abc-123"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    PromptResponse:
+      required:
+      - message
+      - conversationId
+      type: object
+      properties:
+        message:
+          type: string
+          description: The assistant's reply.
+        conversationId:
+          type: string
+          description: |
+            The conversation identifier. Use this in subsequent requests
+            to maintain conversation context.
+      additionalProperties: false
+    Error:
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+      additionalProperties: false

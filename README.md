@@ -2,6 +2,8 @@
 
 A simple, stateful AI chat API built Amplify Fusion that maintains conversation context across multiple turns using PostgreSQL (Neon) for message history storage. The API is OpenAI compliant and supports optional conversation ID management by Fusion. Groq is the LLM used in this example, but any of the Amplify Fusion AI Connectors can be used.
 
+The API uses OAuth 2 front end security and extracts the client id from the jwt token. This client id is used to restrict converations to specific client ids.
+
 ## API
 
 ### POST /v1/prompt
@@ -69,20 +71,22 @@ By passing the full message history to OpenAI on every request, the model has co
 ### PostgreSQL Schema
 
 ```sql
-CREATE TABLE conversations (
-  conversation_id  VARCHAR(255) PRIMARY KEY,
+REATE TABLE conversations (
+  conversation_id  VARCHAR(255) NOT NULL,
+  client_id        VARCHAR(255) NOT NULL,
   created_at       TIMESTAMP DEFAULT NOW(),
   updated_at       TIMESTAMP DEFAULT NOW(),
-  messages         JSONB NOT NULL DEFAULT '[]'
+  messages         JSONB NOT NULL DEFAULT '[]',
+  PRIMARY KEY (conversation_id, client_id)
 );
 ```
 
 ### Upsert Message
 
 ```sql
-INSERT INTO conversations (conversation_id, messages)
-VALUES (:conversationId, CAST(:messageArray AS jsonb))
-ON CONFLICT (conversation_id)
+INSERT INTO conversations (conversation_id, client_id, messages)
+VALUES (:conversationId, :clientId, CAST(:messageArray AS jsonb))
+ON CONFLICT (conversation_id, client_id)
 DO UPDATE SET
   messages = CAST(:messageArray AS jsonb),
   updated_at = NOW();
@@ -91,7 +95,9 @@ DO UPDATE SET
 ### Retrieve Message History
 
 ```sql
-SELECT messages FROM conversations WHERE conversation_id = :conversationId;
+SELECT messages FROM conversations 
+WHERE conversation_id = :conversationId
+AND client_id = :clientId;
 ```
 
 ### Delete Old Conversations

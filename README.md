@@ -7,6 +7,8 @@ A simple, stateful AI chat API built in Amplify Fusion that maintains conversati
 * Uses OAuth 2 API front end security and extracts the client id from the jwt token. This client id is used to restrict converations to specific client ids
 * Implements prompt and response Guardrail check for AI goverenace
 
+A sample web app can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app)
+
 ## API
 
 ### POST /v1/prompt

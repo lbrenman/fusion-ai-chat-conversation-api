@@ -1,4 +1,4 @@
-# Amplify Fusion AI Chat Conversation Readme
+# Amplify Fusion AI Chat Conversation API
 
 A simple, stateful AI chat API built in Amplify Fusion that maintains conversation context across multiple turns using (Neon) PostgreSQL for message history storage. It has the following features:
 * Supports optional conversation management which is also useful for prompt/response audit logging which is often required in finance or healthcare applications

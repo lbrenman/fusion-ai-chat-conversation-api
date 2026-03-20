@@ -9,6 +9,8 @@ A simple, stateful AI chat API built in Amplify Fusion that maintains conversati
 
 A sample web app can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app)
 
+Besides the API, the project also includes a cron job integration that can purge old conversations if activated.
+
 ## API
 
 ### POST /v1/prompt

@@ -11,6 +11,8 @@ A sample web app can be found [here](https://github.com/lbrenman/fusion-ai-chat-
 
 Another sample web app can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app-authcodepkce). It uses authorization with PKCE to authenticate users.
 
+The API check the authenticated user role to route to LLM.
+
 Besides the API, the project also includes a cron job integration that can purge old conversations if activated.
 
 ## API

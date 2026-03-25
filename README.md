@@ -156,4 +156,30 @@ Prompt: `What are the side effects of taking too much acetaminophen?`
 
 ## Tesing Multi-Provider Failover
 
-Change the Groq model to emulate model deprecation/removal
+Change the Groq model to an invalid model to emulate model deprecation/removal
+
+## Connector Settings
+
+![image](images/Anthropic.png)
+![image](images/Groq-OpenAI.png)
+![image](images/LakeraGuard.png)
+![image](images/OpenAI.png)
+![image](images/PostgresLBG.png)
+
+## Keycloak Settings
+
+* Client Credentials
+
+![image](images/ClientCredentialsClient.png)
+
+* Authorization Code with PKCE
+
+![image](images/AuthCodewithPKCEClient.png)
+
+* Realm Roles
+
+![image](images/RealmRoles.png)
+
+* User Role Assignment
+
+![image](images/UserRoleAssignment.png)

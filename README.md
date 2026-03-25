@@ -130,6 +130,17 @@ The client is responsible for managing conversation IDs.
 - Pass the returned `conversationId` in all subsequent requests to maintain context
 - A null or missing `conversationId` starts a fresh conversation with no prior context
 
+## Main Fusion Integration
+
+The main part of the integration is shown below:
+
+![image](images/main-flow-1.png)
+![image](images/main-flow-2.png)
+
+A service to extract clientId and roles from the OAuth 2.0 jwt token is shown below:
+
+![image](images/jwt-service.png)
+
 ## Testing Context
 
 A simple way to verify that conversation context is working correctly:

@@ -16,6 +16,9 @@ The API check the authenticated user role to route to LLM.
 
 Besides the API, the project also includes a cron job integration that can purge old conversations if activated.
 
+[Demo Video](https://youtu.be/BjTH6bFMKV8)
+[How It Was Built](https://youtu.be/6qJiwYp4yRs)
+
 ## API
 
 ### POST /v1/prompt

@@ -6,6 +6,7 @@ A simple, stateful AI chat API built in Amplify Fusion that maintains conversati
 * Implements multi-provider failover by calling Anthropic of the Groq requests fails
 * Uses OAuth 2 API front end security and extracts the client id from the jwt token. This client id is used to restrict converations to specific client ids
 * Implements prompt and response Guardrail check for AI goverenace
+* Can provide `modelRequested` to request a specific model and returns `modelUsed`
 
 A sample web app can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app). It uses client credentials (client id and secret) to authenticate.
 
@@ -26,7 +27,8 @@ Submit a prompt and receive a response from the LLM with full conversation conte
 ```json
 {
   "prompt": "What is my name?",
-  "conversationId": "abc-123"
+  "conversationId": "abc-123",
+  "modelRequested": "gpt-4o"
 }
 ```
 
@@ -34,13 +36,15 @@ Submit a prompt and receive a response from the LLM with full conversation conte
 |---|---|---|---|
 | `prompt` | string | Yes | The user's message to send to the LLM |
 | `conversationId` | string | No | ID of an existing conversation. If omitted, a new conversation is created |
+| `modelRequested` | string | No | The model to use for this request (e.g. `gpt-4o`, `claude-sonnet-4-6`). If omitted or unavailable, the server uses its default model |
 
 #### Response Body
 
 ```json
 {
   "message": "Your name is Leor.",
-  "conversationId": "abc-123"
+  "conversationId": "abc-123",
+  "modelUsed": "gpt-4o"
 }
 ```
 
@@ -48,6 +52,7 @@ Submit a prompt and receive a response from the LLM with full conversation conte
 |---|---|---|
 | `message` | string | The assistant's reply |
 | `conversationId` | string | The conversation ID (use this in subsequent requests to maintain context) |
+| `modelUsed` | string | The model that was actually used. May differ from `modelRequested` if the requested model was unavailable or not recognized |
 
 #### Error Response
 

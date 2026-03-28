@@ -3,16 +3,12 @@
 A simple, stateful AI chat API built in Amplify Fusion that maintains conversation context across multiple turns using (Neon) PostgreSQL for message history storage. It has the following features:
 * Supports optional conversation management which is also useful for prompt/response audit logging which is often required in finance or healthcare applications
 * Groq is the main and Anthropic is the secondary LLM used in this example, but any of the Amplify Fusion AI Connectors can be used
-* Implements multi-provider failover by calling Anthropic of the Groq requests fails
-* Uses OAuth 2 API front end security and extracts the client id from the jwt token. This client id is used to restrict converations to specific client ids
+* Implements multi-provider failover by calling Anthropic if the target LLM requests fails
+* Extracts the client id and user roles from the jwt token. FOr API Key extracts Application ID form the incoming headers. This client/app id is used to restrict converations to specific client ids. The roles are used for LLM Routing
 * Implements prompt and response Guardrail check for AI goverenace
 * Can provide `modelRequested` to request a specific model and returns `modelUsed`
 
-A sample web app can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app). It uses client credentials (client id and secret) to authenticate.
-
-Another sample web app can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app-authcodepkce). It uses authorization with PKCE to authenticate users.
-
-The API check the authenticated user role to route to LLM.
+A sample web app that supports OAuth Client Credentials, Authcode with PKCE or API Key can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app-multi-auth).
 
 Besides the API, the project also includes a cron job integration that can purge old conversations if activated.
 

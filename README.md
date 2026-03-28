@@ -1,12 +1,14 @@
 # Amplify Fusion AI Chat Conversation API
 
 A simple, stateful AI chat API built in Amplify Fusion that maintains conversation context across multiple turns using (Neon) PostgreSQL for message history storage. It has the following features:
-* Supports optional conversation management which is also useful for prompt/response audit logging which is often required in finance or healthcare applications
-* Groq is the main and Anthropic is the secondary LLM used in this example, but any of the Amplify Fusion AI Connectors can be used
-* Implements multi-provider failover by calling Anthropic if the target LLM requests fails
-* Extracts the client id and user roles from the jwt token. FOr API Key extracts Application ID form the incoming headers. This client/app id is used to restrict converations to specific client ids. The roles are used for LLM Routing
+* Conversation management using API generated converation id and either OAuth 2.0 client id or API Key Application id for conversation isolation. THis is also useful for prompt/response audit logging which is often required in finance or healthcare applications
+* Implements multi-provider failover if the target LLM requests fails
+* Supports OAuth 2.0 and API Key front end security
+  * OAuth 2.0 - Extracts the Client Id and user roles from the Authorization header jwt token. Client Id is used for conversation management. Role is used for LLM Orchestration
+  * API Key - Extracts Application Id from the AppId header. Application Id is used for conversation management
 * Implements prompt and response Guardrail check for AI goverenace
-* Can provide `modelRequested` to request a specific model and returns `modelUsed`
+* Returns `modelUsed` in response
+* Supports `modelRequested` in request but currently not leveraged yet
 
 A sample web app that supports OAuth Client Credentials, Authcode with PKCE or API Key can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app-multi-auth).
 

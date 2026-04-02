@@ -5,6 +5,7 @@ A simple, stateful AI chat API built in Amplify Fusion that maintains conversati
 * Implements multi-provider failover if the target LLM requests fails
 * Supports OAuth 2.0 and API Key front end security
   * OAuth 2.0 - Extracts the Client Id and user roles from the Authorization header jwt token. Client Id is used for conversation management. Role is used for LLM Orchestration
+  * You can find a docuemnt for configuring KeyCloak for Fusion API's [here](https://gist.github.com/lbrenman/69317b109e0db85771ae29a2fab890c8)
   * API Key - Extracts Application Id from the AppId header. Application Id is used for conversation management
 * Implements prompt and response Guardrail check for AI goverenace
 * Returns `modelUsed` in response
@@ -14,8 +15,8 @@ A sample web app that supports OAuth Client Credentials, Authcode with PKCE or A
 
 Besides the API, the project also includes a cron job integration that can purge old conversations if activated.
 
-[Demo Video](https://youtu.be/BjTH6bFMKV8)
-[How It Was Built](https://youtu.be/6qJiwYp4yRs)
+* [Demo Video](https://youtu.be/BjTH6bFMKV8)
+* [How It Was Built](https://youtu.be/6qJiwYp4yRs)
 
 ## API
 

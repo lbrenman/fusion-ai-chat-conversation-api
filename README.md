@@ -15,6 +15,8 @@ A sample web app that supports OAuth Client Credentials, Authcode with PKCE or A
 
 Besides the API, the project also includes a cron job integration that can purge old conversations if activated.
 
+To get started, import the AI_ChatConversation.zip project export into your Fusion tenant and enter credentials for all connections and activate.
+
 * [Demo Video](https://youtu.be/BjTH6bFMKV8)
 * [How It Was Built](https://youtu.be/6qJiwYp4yRs)
 

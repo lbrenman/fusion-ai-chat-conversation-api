@@ -13,9 +13,9 @@ A simple, stateful AI chat API built in Amplify Fusion that maintains conversati
 
 A sample web app that supports OAuth Client Credentials, Authcode with PKCE or API Key can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app-multi-auth).
 
-Besides the API, the project also includes a cron job integration that can purge old conversations if activated.
+To get started, import the [AI_ChatConversation.zip](https://github.com/lbrenman/fusion-ai-chat-conversation-api/blob/main/AI_ChatConversation.zip) project export into your Fusion tenant and enter credentials for all connections and activate.
 
-To get started, import the AI_ChatConversation.zip project export into your Fusion tenant and enter credentials for all connections and activate.
+Besides the API, the project also includes a cron job integration that can purge old conversations if activated.
 
 * [Demo Video](https://youtu.be/BjTH6bFMKV8)
 * [How It Was Built](https://youtu.be/6qJiwYp4yRs)

@@ -1,8 +1,10 @@
 # Amplify Fusion AI Chat Conversation API
 
-A simple, stateful AI chat API built in Amplify Fusion that maintains conversation context across multiple turns using (Neon) PostgreSQL for message history storage. It has the following features:
-* Conversation management using API generated converation id and either OAuth 2.0 client id or API Key Application id for conversation isolation. THis is also useful for prompt/response audit logging which is often required in finance or healthcare applications
-* Implements multi-provider failover if the target LLM requests fails
+A Fusion AI chat API that maintains conversation context across multiple turns using (Neon) PostgreSQL for message history storage. It has the following features:
+* Conversation management using API generated converation id and either OAuth 2.0 client id or API Key Application id for conversation isolation. This is also useful for prompt/response audit logging which is often required in finance or healthcare applications
+* Implements two different LLM Orchestrations
+  * Multi-provider failover if the target LLM requests fails
+  * Role based LLM/Model selection (if Oauth 2.0 role detected)
 * Supports OAuth 2.0 and API Key front end security
   * OAuth 2.0 - Extracts the Client Id and user roles from the Authorization header jwt token. Client Id is used for conversation management. Role is used for LLM Orchestration
   * You can find a document for configuring KeyCloak for Fusion API's [here](https://gist.github.com/lbrenman/69317b109e0db85771ae29a2fab890c8)

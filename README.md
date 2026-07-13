@@ -15,6 +15,8 @@ A Fusion AI chat API that maintains conversation context across multiple turns u
 
 A sample web app that supports OAuth Client Credentials, Authcode with PKCE or API Key can be found [here](https://github.com/lbrenman/fusion-ai-chat-web-app-multi-auth).
 
+For demo purposes, the project includes a single page version of the web app exposed as an HTTPS Server integration.
+
 To get started, import the [AI_ChatConversation.zip](https://github.com/lbrenman/fusion-ai-chat-conversation-api/blob/main/AI_ChatConversation.zip) project export into your Fusion tenant and enter credentials for all connections and activate.
 
 Besides the API, the project also includes a cron job integration that can purge old conversations if activated.

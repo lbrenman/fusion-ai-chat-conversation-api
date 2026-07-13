@@ -451,9 +451,17 @@
   }
   .btn-save:hover { background: #5558e6; }
 
+  #sidebar-scrim { display: none; }
+
   @media (max-width: 720px) {
-    #sidebar { position: fixed; z-index: 40; height: 100%; transform: translateX(-100%); transition: transform .2s; }
+    #sidebar { position: fixed; z-index: 40; height: 100%; transform: translateX(-100%); transition: transform .2s; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
     #sidebar.open { transform: none; }
+    #sidebar-scrim.visible {
+      display: block;
+      position: fixed; inset: 0; z-index: 35;
+      background: rgba(5,7,12,0.55);
+      backdrop-filter: blur(2px);
+    }
     #menu-btn { display: inline-flex !important; }
     #chat-header { display: flex; align-items: center; gap: 12px; }
   }
@@ -493,6 +501,7 @@
 
 <!-- ─────────────────── APP VIEW ─────────────────── -->
 <div id="view-app" class="hidden">
+  <div id="sidebar-scrim" onclick="closeSidebar()"></div>
   <aside id="sidebar">
     <div id="sidebar-header">
       <div class="side-logo">✦</div>
@@ -529,7 +538,7 @@
 
   <main id="main">
     <div id="chat-header">
-      <button id="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+      <button id="menu-btn" onclick="toggleSidebar()" aria-label="Toggle conversations sidebar">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
       <div>
@@ -989,6 +998,13 @@ const sendBtn     = document.getElementById('send-btn');
 const chatTitle   = document.getElementById('chat-title');
 const convIdDisp  = document.getElementById('conv-id-display');
 
+/* ── MOBILE SIDEBAR ───────────────────────────────────────────────── */
+const sidebarEl = document.getElementById('sidebar');
+const scrimEl   = document.getElementById('sidebar-scrim');
+function openSidebar()  { sidebarEl.classList.add('open');    scrimEl.classList.add('visible'); }
+function closeSidebar() { sidebarEl.classList.remove('open'); scrimEl.classList.remove('visible'); }
+function toggleSidebar() { sidebarEl.classList.contains('open') ? closeSidebar() : openSidebar(); }
+
 /* ── SIDEBAR ──────────────────────────────────────────────────────── */
 function renderSidebar() {
   convList.innerHTML = '';
@@ -1029,6 +1045,7 @@ function newConversation() {
   messagesInner.querySelectorAll('.msg-row').forEach(n => n.remove());
   emptyState.classList.remove('hidden');
   renderSidebar();
+  closeSidebar();
   promptInput.focus();
 }
 function loadConv(id) {
@@ -1043,7 +1060,7 @@ function loadConv(id) {
     appendBubble(m.role === 'user' ? 'user' : 'ai', m.content, false, m.modelUsed || null));
   renderSidebar();
   scrollToBottom(false);
-  document.getElementById('sidebar').classList.remove('open');
+  closeSidebar();
 }
 
 /* ── MESSAGES ─────────────────────────────────────────────────────── */
